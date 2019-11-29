@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Geolocation : MonoBehaviour
 {
@@ -40,7 +41,9 @@ public class Geolocation : MonoBehaviour
         }
         else
         {
-            print("Location: " + Input.location.lastData.latitude + " " + Input.location.lastData.longitude);
+            GameObject feat;
+            feat = GameObject.Find("Feature Details");
+            feat.GetComponent<Text>().text = "Location: " + Input.location.lastData.latitude + " " + Input.location.lastData.longitude;
         }
 
         Input.location.Stop();

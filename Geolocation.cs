@@ -105,3 +105,8 @@ internal class GIS_MultiPolygon : GIS_Feature
     GIS_Polygon[] polygons;
 }
 
+internal class GIS_GeometryCollection : GIS_Feature
+{
+    GIS_Feature[] geometries;
+}
+

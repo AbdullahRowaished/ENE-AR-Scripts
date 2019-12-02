@@ -49,4 +49,45 @@ public class Geolocation : MonoBehaviour
         Input.location.Stop();
     }
    
+    
+
 }
+
+
+internal abstract class GIS_Feature
+{
+    string name;
+    int identifier;
+}
+
+internal class Coordinates
+{
+    float longitude, latitude;
+}
+
+internal class GIS_Point : GIS_Feature
+{
+    Coordinates coordinates;
+    float height;
+}
+
+internal class GIS_MultiPoint : GIS_Feature
+{
+    GIS_Point[] points;
+}
+
+internal class GIS_LineString : GIS_Feature
+{
+    GIS_Point[] points;
+}
+
+internal class GIS_Polygon : GIS_Feature
+{
+    GIS_LineString[] linestrings;
+}
+
+internal class GIS_MultiPolygon : GIS_Feature
+{
+    GIS_Polygon[] polygons;
+}
+

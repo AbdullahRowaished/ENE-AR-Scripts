@@ -6,12 +6,16 @@ using UnityEngine.UI;
 
 public class Geolocation : MonoBehaviour
 {
-
+    UnityEngine.UI.Text text;
+    IEnumerator RV;
     // Start is called before the first frame update
-    private void Start()
+    IEnumerator Start()
     {
-        LocationInit();
+        text = GameObject.Find("Text").GetComponent<UnityEngine.UI.Text>();
+        RV = LocationInit();
+        return RV;
     }
+
 
     private IEnumerator LocationInit()
     {
@@ -30,20 +34,18 @@ public class Geolocation : MonoBehaviour
 
         if (maxWait < 1)
         {
-            print("Timed out");
+            text.text = "Timed out";
             yield break;
         }
 
         if (Input.location.status == LocationServiceStatus.Failed)
         {
-            print("Unable to determine device location");
+            text.text = "Unable to determine device location";
             yield break;
         }
         else
         {
-            GameObject feat;
-            feat = GameObject.Find("Feature Details");
-            feat.GetComponent<Text>().text = "Location: " + Input.location.lastData.latitude + " " + Input.location.lastData.longitude;
+            text.text = "Location: " + Input.location.lastData.latitude + " " + Input.location.lastData.longitude;
         }
 
         Input.location.Stop();

@@ -2,20 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Geolocation : MonoBehaviour
 {
-    UnityEngine.UI.Text text;
-    IEnumerator RV;
+    private UserInterface UI;
+
+    private void Awake()
+    {
+        UI = GameObject.Find("UserInterface").GetComponent<UserInterface>();
+    }
+
     // Start is called before the first frame update
     IEnumerator Start()
     {
-        text = GameObject.Find("Text").GetComponent<UnityEngine.UI.Text>();
-        RV = LocationInit();
-        return RV;
+        return LocationInit();
     }
-
 
     private IEnumerator LocationInit()
     {
@@ -34,24 +35,23 @@ public class Geolocation : MonoBehaviour
 
         if (maxWait < 1)
         {
-            text.text = "Timed out";
+            UI.UpdateGPS("Timed out");
             yield break;
         }
 
         if (Input.location.status == LocationServiceStatus.Failed)
         {
-            text.text = "Unable to determine device location";
+            UI.UpdateGPS("Unable to determine device location");
             yield break;
         }
         else
         {
-            text.text = "Location: " + Input.location.lastData.latitude + " " + Input.location.lastData.longitude;
+            UI.UpdateGPS(Input.location.lastData.latitude + ", " + Input.location.lastData.longitude);
         }
 
         Input.location.Stop();
+        yield return null;
     }
-   
-    
 
 }
 

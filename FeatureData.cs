@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class FeatureData : MonoBehaviour
 {
-    GIS_Feature.GIS_GeometryCollection database;
+    public GIS_Feature.GIS_GeometryCollection database;
     // Start is called before the first frame update
     void Start()
     {
-        
+        PopulateDatabase();
     }
 
     void PopulateDatabase()

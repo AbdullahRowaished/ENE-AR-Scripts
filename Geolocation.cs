@@ -7,6 +7,9 @@ public class Geolocation : MonoBehaviour
 {
     private UserInterface UI;
 
+    public float longitude, latitude;
+
+
     private void Awake()
     {
         UI = GameObject.Find("UserInterface").GetComponent<UserInterface>();
@@ -46,7 +49,7 @@ public class Geolocation : MonoBehaviour
         }
         else
         {
-            UI.UpdateGPS(Input.location.lastData.latitude + ", " + Input.location.lastData.longitude);
+            UI.UpdateGPS((latitude = Input.location.lastData.latitude) + ", " + (longitude = Input.location.lastData.longitude));
         }
 
         Input.location.Stop();

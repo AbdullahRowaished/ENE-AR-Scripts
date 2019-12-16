@@ -5,58 +5,58 @@ using UnityEngine;
 /// <summary>
 /// Abstract class for all GIS Features as per RFC 7946
 /// </summary>
-public class GIS_Feature : MonoBehaviour
+public class GIS_Feature
 {
-    string featureName; //Human readable name for feature
+    public string featureName; //Human readable name for feature
     int identifier; //Numericle ID for feature
     /// <summary>
     /// Longitude and latitude for a Point
     /// </summary>
     internal class Coordinates
     {
-        float longitude, latitude;
+        public float longitude, latitude;
     }
     /// <summary>
     /// Point on map with coordinates and height above ground
     /// </summary>
     internal class GIS_Point : GIS_Feature
     {
-        Coordinates coordinates;
-        float height;
+        public Coordinates coordinates;
+        public float height;
     }
     /// <summary>
     /// Feature with many Points
     /// </summary>
     internal class GIS_MultiPoint : GIS_Feature
     {
-        GIS_Point[] points;
+        public GIS_Point[] points;
     }
     /// <summary>
     /// Line on map made with Points
     /// </summary>
     internal class GIS_LineString : GIS_Feature
     {
-        GIS_Point[] points;
+        public GIS_Point[] points;
     }
     /// <summary>
     /// Polygon made of Line Strings
     /// </summary>
     internal class GIS_Polygon : GIS_Feature
     {
-        GIS_LineString[] linestrings;
+        public GIS_LineString[] linestrings;
     }
     /// <summary>
     /// Feature with many Polygons
     /// </summary>
     internal class GIS_MultiPolygon : GIS_Feature
     {
-        GIS_Polygon[] polygons;
+        public GIS_Polygon[] polygons;
     }
     /// <summary>
     /// A collection containing several features
     /// </summary>
     internal class GIS_GeometryCollection : GIS_Feature
     {
-        GIS_Feature[] geometries;
+        public GIS_Feature[] geometries;
     }
 }

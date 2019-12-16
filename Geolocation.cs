@@ -106,7 +106,9 @@ internal class GIS_MultiPolygon : GIS_Feature
 {
     GIS_Polygon[] polygons;
 }
-
+/// <summary>
+/// A collection containing several features
+/// </summary>
 internal class GIS_GeometryCollection : GIS_Feature
 {
     GIS_Feature[] geometries;

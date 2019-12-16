@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class GIS_Feature : MonoBehaviour
 {
-    string name; //Human readable name for feature
+    string featureName; //Human readable name for feature
     int identifier; //Numericle ID for feature
     /// <summary>
     /// Longitude and latitude for a Point

@@ -6,24 +6,25 @@ using UnityEngine.UI;
 public class UserInterface : MonoBehaviour
 {
     // GameObjects for UI Elements
-    public GameObject Launch, Session; 
+    [Tooltip("Input UI Elements")]
+    public GameObject Launch, Session;
+    public Text GPS;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        Launch = GameObject.Find("LaunchScreen");
-        Session = GameObject.Find("ARSession");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void GetStarted()
+    /// <summary>
+    /// Switches from Launch Screen to AR Session
+    /// </summary>
+    public void GetStarted()
     {
         Launch.SetActive(false);
         Session.SetActive(true);
+    }
+
+    /// <summary>
+    /// Updates GPS Coordinates
+    /// </summary>
+    /// <param name="coordinates"></param>
+    public void UpdateGPS(string coordinates)
+    {
+        GPS.text = "Location: " + coordinates;
     }
 }

@@ -10,6 +10,9 @@ public class UserInterface : MonoBehaviour
     public GameObject Launch, Session;
     public Text GPS;
 
+    [Tooltip("Feature Drawing")]
+    public FeatureDraw FDElement;
+
     /// <summary>
     /// Switches from Launch Screen to AR Session
     /// </summary>
@@ -17,6 +20,7 @@ public class UserInterface : MonoBehaviour
     {
         Launch.SetActive(false);
         Session.SetActive(true);
+        FDElement.DrawFeatures();
     }
 
     /// <summary>

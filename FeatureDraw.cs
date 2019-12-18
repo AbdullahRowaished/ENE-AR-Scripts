@@ -32,22 +32,12 @@ public class FeatureDraw : MonoBehaviour
 
                 for (int i = 0; i < fiber_cable.points.Length - 1; i++)
                 {
-                    Debug.Log("Fiber Cable Points Length" + fiber_cable.points.Length);
-                    Debug.Log("Loop Count: " + i);
-
                     GIS_Feature.GIS_Point firstPoint, secondPoint;
                     float length, angle; //length and angle between two points
                     float[] midpoint;
 
                     firstPoint = fiber_cable.points[i];
                     secondPoint = fiber_cable.points[i + 1];
-                    
-                    Debug.Log("First Point: " + firstPoint is null);
-                    Debug.Log("Second Point: " + secondPoint is null);
-                    Debug.Log("First Point Coords: " + firstPoint.coordinates is null);
-                    Debug.Log("Second Point Coords: " + secondPoint.coordinates is null);
-                    
-
                     length = EstimateLength(firstPoint.coordinates, secondPoint.coordinates);
                     midpoint = EstimateMidpoint(firstPoint.coordinates, secondPoint.coordinates);
                     angle = EstimateAngle(firstPoint.coordinates, secondPoint.coordinates);
@@ -77,12 +67,6 @@ public class FeatureDraw : MonoBehaviour
         mpLong = (coordinates2.longitude + coordinates1.longitude) / 2;
         mpLatAct = 111139 * (mpLat - geolocation.latitude);
         mpLongAct = 111139 * (mpLong - geolocation.longitude);
-        Debug.Log("Original Midpoint Latitdue: " + mpLat);
-        Debug.Log("Original Midpoint Longitude : " + mpLong);
-        Debug.Log("GPS Latitude : " + geolocation.latitude);
-        Debug.Log("GPS Longitude : " + geolocation.longitude);
-        Debug.Log("Actual Midpoint Latitude: " + mpLatAct);
-        Debug.Log("Actual Midpoint Longitude: " + mpLongAct);
 
         //TODO reference midpoint (In GPS coordinates format) to User GPS location and convert to Unity units.
         return new float[] {mpLatAct, mpLongAct};
@@ -100,7 +84,6 @@ public class FeatureDraw : MonoBehaviour
         y = (gIS_Point.coordinates.latitude - geolocation.latitude) * 111139;
         x = (gIS_Point.coordinates.longitude - geolocation.longitude) * 111139;
         a = Mathf.Atan2(y, x) * Mathf.Rad2Deg;
-        Debug.Log("Mathf ATAN:" + a);
 
         GameObject cable = new GameObject(featureName);
         cable.transform.SetParent(transform);
@@ -112,8 +95,6 @@ public class FeatureDraw : MonoBehaviour
 
     private void CreateFiberSegment(float[] midpoint, float length, float angle, GameObject cable, int segmentNo)
     {
-        Debug.Log("Mathf ATAN:" + angle);
-
         GameObject segment = Instantiate(FiberPrefab);
 
         segment.name = cable.name + ".Segment" + segmentNo;

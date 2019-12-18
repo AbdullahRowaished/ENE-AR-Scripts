@@ -72,8 +72,16 @@ public class FeatureDraw : MonoBehaviour
 
     private float[] EstimateMidpoint(GIS_Feature.Coordinates coordinates1, GIS_Feature.Coordinates coordinates2)
     {
+        float mpLat, mpLong, mpLatAct, mpLongAct;
+        mpLat = (coordinates2.latitude + coordinates1.latitude) / 2;
+        mpLong = (coordinates2.longitude + coordinates1.longitude) / 2;
+        mpLatAct = 111139 * (mpLat - geolocation.latitude);
+        mpLongAct = 111139 * (mpLat - geolocation.longitude);
+        Debug.Log("Midpoint Latitude: " + mpLatAct);
+        Debug.Log("Midpoint Longitude: " + mpLongAct);
+
         //TODO reference midpoint (In GPS coordinates format) to User GPS location and convert to Unity units.
-        return new float[] { (coordinates2.latitude + coordinates1.latitude) / 2, (coordinates2.longitude + coordinates1.longitude) / 2 };
+        return new float[] {mpLatAct, mpLongAct};
     }
 
     /// <summary>

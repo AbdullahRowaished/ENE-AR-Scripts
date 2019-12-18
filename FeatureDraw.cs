@@ -9,12 +9,17 @@ public class FeatureDraw : MonoBehaviour
     public FeatureData features;
 
     [Tooltip("Fiber Cable Prefab")]
-    public GameObject FiberPrefab;
+    public GameObject SegmentPrefab;
 
     [Tooltip("Geolocation Script")]
     public Geolocation geolocation;
 
-    
+    Stack<GameObject> segments;
+
+    private void Start()
+    {
+        segments = new Stack<GameObject>(GameObject.FindGameObjectsWithTag("Segment"));
+    }
 
     public void DrawFeatures()
     {
@@ -95,17 +100,17 @@ public class FeatureDraw : MonoBehaviour
 
     private void CreateFiberSegment(float[] midpoint, float length, float angle, GameObject cable, int segmentNo)
     {
-        GameObject segment = Instantiate(FiberPrefab);
+        GameObject segment = segments.Pop();
 
         segment.name = cable.name + ".Segment" + segmentNo;
         segment.transform.SetParent(cable.transform);
 
-        segment.transform.position = new Vector3(midpoint[1], 0f, midpoint[0]);
+        segment.transform.position = new Vector3(midpoint[1], -4f, midpoint[0]);
         segment.transform.Rotate(Vector3.forward * angle);
         segment.transform.localScale += Vector3.up * length;
 
         
-        segment.SetActive(true);
+        //segment.SetActive(true);
 
     }
 

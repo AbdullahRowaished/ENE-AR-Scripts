@@ -18,7 +18,11 @@ public class Geolocation : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
-        return LocationInit();
+        IEnumerator returnValue = LocationInit();
+        //DEBUG
+        latitude = 26.329872f;
+        longitude = 50.109161f;
+        return returnValue;
     }
 
     private IEnumerator LocationInit()
@@ -53,6 +57,8 @@ public class Geolocation : MonoBehaviour
         }
 
         Input.location.Stop();
+
+        
         yield return null;
     }
 

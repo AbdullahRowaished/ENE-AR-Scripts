@@ -76,9 +76,13 @@ public class FeatureDraw : MonoBehaviour
         mpLat = (coordinates2.latitude + coordinates1.latitude) / 2;
         mpLong = (coordinates2.longitude + coordinates1.longitude) / 2;
         mpLatAct = 111139 * (mpLat - geolocation.latitude);
-        mpLongAct = 111139 * (mpLat - geolocation.longitude);
-        Debug.Log("Midpoint Latitude: " + mpLatAct);
-        Debug.Log("Midpoint Longitude: " + mpLongAct);
+        mpLongAct = 111139 * (mpLong - geolocation.longitude);
+        Debug.Log("Original Midpoint Latitdue: " + mpLat);
+        Debug.Log("Original Midpoint Longitude : " + mpLong);
+        Debug.Log("GPS Latitude : " + geolocation.latitude);
+        Debug.Log("GPS Longitude : " + geolocation.longitude);
+        Debug.Log("Actual Midpoint Latitude: " + mpLatAct);
+        Debug.Log("Actual Midpoint Longitude: " + mpLongAct);
 
         //TODO reference midpoint (In GPS coordinates format) to User GPS location and convert to Unity units.
         return new float[] {mpLatAct, mpLongAct};

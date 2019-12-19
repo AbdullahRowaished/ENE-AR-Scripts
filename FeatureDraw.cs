@@ -14,12 +14,8 @@ public class FeatureDraw : MonoBehaviour
     [Tooltip("Geolocation Script")]
     public Geolocation geolocation;
 
-    Stack<GameObject> segments;
-
-    private void Start()
-    {
-        segments = new Stack<GameObject>(GameObject.FindGameObjectsWithTag("Segment"));
-    }
+    [Tooltip("Segment Pool")]
+    public SegmentPooling segmentPool;
 
     public void DrawFeatures()
     {
@@ -100,10 +96,10 @@ public class FeatureDraw : MonoBehaviour
 
     private void CreateFiberSegment(float[] midpoint, float length, float angle, GameObject cable, int segmentNo)
     {
-        GameObject segment = segments.Pop();
+        GameObject segment = segmentPool.PoolSegment();
 
         segment.name = cable.name + ".Segment" + segmentNo;
-        segment.transform.SetParent(cable.transform);
+        segment.transform.parent = cable.transform;
 
         segment.transform.position = new Vector3(midpoint[1], -4f, midpoint[0]);
         segment.transform.Rotate(Vector3.forward * angle);

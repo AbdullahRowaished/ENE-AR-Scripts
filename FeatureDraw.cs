@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GoogleARCore;
+using GoogleARCore.Examples.ObjectManipulation;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,19 +16,23 @@ public class FeatureDraw : MonoBehaviour
     [Tooltip("Segment Pool")]
     public SegmentPooling segmentPool;
 
+    [Tooltip("Fiber Manipulator")]
+    public FiberManipulator FiberManipulator;
+
+    public GameObject ManipulatorPrefab { get; private set; }
+
     public void DrawFeatures()
     {
+        Trackable trackable;
+
         foreach (GIS_Feature feature in features.database.geometries)
         {
+            trackable = new GeoTrackable();
             if (feature is GIS_Feature.GIS_LineString)
             {
-
                 GIS_Feature.GIS_LineString fiber_cable = (GIS_Feature.GIS_LineString) feature;
                 GameObject cable = CreateFiberCable(fiber_cable.featureName, fiber_cable.points[0], geolocation);
-
-
                 bool hasNearPoints = false; //Does this fiber cable fall within the 'goldilock zone'
-
 
                 for (int i = 0; i < fiber_cable.points.Length - 1; i++)
                 {
@@ -46,6 +52,22 @@ public class FeatureDraw : MonoBehaviour
 
                     CreateFiberSegment(midpoint, length, angle, cable, i+1);
                 }
+
+                // Instantiate manipulator.
+                var manipulator =
+                    Instantiate(ManipulatorPrefab, cable.transform.position, cable.transform.rotation);
+
+                // Make game object a child of the manipulator.
+                FiberManipulator.transform.parent = manipulator.transform;
+
+                // Create an anchor to allow ARCore to track the hitpoint as understanding of
+                // the physical world evolves.
+                var anchor = trackable.CreateAnchor(new Pose(cable.transform.position, cable.transform.rotation));
+
+                // Make manipulator a child of the anchor.
+                manipulator.transform.parent = anchor.transform;
+
+                
 
                 //if (!hasNearPoints)
                 //{
@@ -67,10 +89,10 @@ public class FeatureDraw : MonoBehaviour
     private float[] EstimateMidpoint(GIS_Feature.Coordinates coordinates1, GIS_Feature.Coordinates coordinates2)
     {
         float mpLat, mpLong, mpLatAct, mpLongAct;
-        mpLat = (coordinates2.latitude + coordinates1.latitude) / 2;
-        mpLong = (coordinates2.longitude + coordinates1.longitude) / 2;
-        mpLatAct = 111139 * (mpLat - geolocation.latitude);
-        mpLongAct = 111139 * (mpLong - geolocation.longitude);
+        mpLat = (coordinates2.Latitude + coordinates1.Latitude) / 2;
+        mpLong = (coordinates2.Longitude + coordinates1.Longitude) / 2;
+        mpLatAct = 111139 * (mpLat - geolocation.Latitude);
+        mpLongAct = 111139 * (mpLong - geolocation.Longitude);
 
         //TODO reference midpoint (In GPS coordinates format) to User GPS location and convert to Unity units.
         return new float[] {mpLatAct, mpLongAct};
@@ -85,9 +107,9 @@ public class FeatureDraw : MonoBehaviour
     private GameObject CreateFiberCable(string featureName, GIS_Feature.GIS_Point gIS_Point, Geolocation geolocation)
     {
         float y, x, a;
-        y = (gIS_Point.coordinates.latitude - geolocation.latitude) * 111139;
-        x = (gIS_Point.coordinates.longitude - geolocation.longitude) * 111139;
-        a = Mathf.Atan2(y, x) * Mathf.Rad2Deg;
+        y = (gIS_Point.coordinates.Latitude - geolocation.Latitude) * 111139;
+        x = (gIS_Point.coordinates.Longitude - geolocation.Longitude) * 111139;
+        a = Mathf.Atan2(y, x) * Mathf.Rad2Deg - Input.compass.magneticHeading;
 
         GameObject cable = new GameObject(featureName);
         cable.transform.SetParent(transform);
@@ -117,7 +139,7 @@ public class FeatureDraw : MonoBehaviour
     /// <returns></returns>
     private float EstimateLength(GIS_Feature.Coordinates coordinates1, GIS_Feature.Coordinates coordinates2)
     {
-        return 111139 * Mathf.Sqrt(Mathf.Pow(coordinates2.latitude - coordinates1.latitude, 2) + Mathf.Pow(coordinates2.longitude - coordinates1.longitude, 2));
+        return 111139 * Mathf.Sqrt(Mathf.Pow(coordinates2.Latitude - coordinates1.Latitude, 2) + Mathf.Pow(coordinates2.Longitude - coordinates1.Longitude, 2));
     }
     /// <summary>
     /// Uses pythagorean theory to determine the angle between two XY GIS_Points in planar space
@@ -127,6 +149,12 @@ public class FeatureDraw : MonoBehaviour
     /// <returns></returns>
     private float EstimateAngle(GIS_Feature.Coordinates coordinates1, GIS_Feature.Coordinates coordinates2)
     {
-        return Mathf.Rad2Deg * Mathf.Atan2(coordinates2.latitude - coordinates1.latitude, coordinates2.longitude - coordinates1.longitude);
+        return Mathf.Rad2Deg * Mathf.Atan2(coordinates2.Latitude - coordinates1.Latitude, coordinates2.Longitude - coordinates1.Longitude);
+    }
+
+    internal class GeoTrackable : Trackable {
+        internal GeoTrackable()
+        {
+        }
     }
 }

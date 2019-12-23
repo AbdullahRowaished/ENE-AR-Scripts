@@ -20,8 +20,8 @@ public class Geolocation : MonoBehaviour
     {
         IEnumerator returnValue = LocationInit();
         //DEBUG
-        latitude = 26.329872f;
-        longitude = 50.109161f;
+        //latitude = 26.329872f;
+        //longitude = 50.109161f;
         return returnValue;
     }
 

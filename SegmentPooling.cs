@@ -20,7 +20,10 @@ public class SegmentPooling : MonoBehaviour
         Stack<GameObject> pool = new Stack<GameObject>(GameObject.FindGameObjectsWithTag("Segment"));
         foreach(GameObject segment in pool)
         {
-            segment.SetActive(false);
+            if (segment.activeSelf)
+            {
+                //segment.SetActive(false);
+            }
         }
         return pool;
     }
@@ -31,8 +34,10 @@ public class SegmentPooling : MonoBehaviour
     public GameObject PoolSegment()
     {
         GameObject segment = segmentPool.Pop();
-        segment.SetActive(true);
-
+        if (!segment.activeSelf)
+        {
+            //segment.SetActive(true);
+        }
         return segment;
     }
     /// <summary>

@@ -8,9 +8,6 @@ public class FeatureDraw : MonoBehaviour
     [Tooltip("Database of Geometries")]
     public FeatureData features;
 
-    [Tooltip("Fiber Cable Prefab")]
-    public GameObject SegmentPrefab;
-
     [Tooltip("Geolocation Script")]
     public Geolocation geolocation;
 
@@ -50,13 +47,19 @@ public class FeatureDraw : MonoBehaviour
                     CreateFiberSegment(midpoint, length, angle, cable, i+1);
                 }
 
-                if (!hasNearPoints)
-                {
-                    cable.SetActive(false);
-                } else
-                {
-                    cable.SetActive(true);
-                }
+                //if (!hasNearPoints)
+                //{
+                //    if (cable.activeSelf)
+                //    {
+                //        //cable.SetActive(false);
+                //    }
+                //} else
+                //{
+                //    if (!cable.activeSelf)
+                //    {
+                //        //cable.SetActive(true);
+                //    }
+                //}
             }
         }
     }
@@ -104,10 +107,6 @@ public class FeatureDraw : MonoBehaviour
         segment.transform.position = new Vector3(midpoint[1], -4f, midpoint[0]);
         segment.transform.Rotate(Vector3.forward * angle);
         segment.transform.localScale += Vector3.up * length;
-
-        
-        //segment.SetActive(true);
-
     }
 
     /// <summary>

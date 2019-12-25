@@ -16,9 +16,6 @@ public class FeatureDraw : MonoBehaviour
     [Tooltip("Segment Pool")]
     public SegmentPooling segmentPool;
 
-    [Tooltip("Fiber Manipulator")]
-    public FiberManipulator FiberManipulator;
-
     public GameObject ManipulatorPrefab { get; private set; }
 
     public void DrawFeatures()
@@ -58,7 +55,7 @@ public class FeatureDraw : MonoBehaviour
                     Instantiate(ManipulatorPrefab, cable.transform.position, cable.transform.rotation);
 
                 // Make game object a child of the manipulator.
-                FiberManipulator.transform.parent = manipulator.transform;
+                cable.transform.parent = manipulator.transform;
 
                 // Create an anchor to allow ARCore to track the hitpoint as understanding of
                 // the physical world evolves.

@@ -23,22 +23,22 @@ public class FeatureData : MonoBehaviour
         
         ((GIS_Feature.GIS_LineString)database.geometries[0]).points[0] = new GIS_Feature.GIS_Point();
         ((GIS_Feature.GIS_LineString)database.geometries[0]).points[0].coordinates = new GIS_Feature.Coordinates();
-        ((GIS_Feature.GIS_LineString)database.geometries[0]).points[0].coordinates.latitude = 26.32996f;
-        ((GIS_Feature.GIS_LineString)database.geometries[0]).points[0].coordinates.longitude = 50.10927f;
+        ((GIS_Feature.GIS_LineString)database.geometries[0]).points[0].coordinates.Latitude = 26.32996f;
+        ((GIS_Feature.GIS_LineString)database.geometries[0]).points[0].coordinates.Longitude = 50.10927f;
         
         ((GIS_Feature.GIS_LineString)database.geometries[0]).points[1] = new GIS_Feature.GIS_Point();
         ((GIS_Feature.GIS_LineString)database.geometries[0]).points[1].coordinates = new GIS_Feature.Coordinates();
-        ((GIS_Feature.GIS_LineString)database.geometries[0]).points[1].coordinates.latitude = 26.32999f;
-        ((GIS_Feature.GIS_LineString)database.geometries[0]).points[1].coordinates.longitude = 50.10926f;
+        ((GIS_Feature.GIS_LineString)database.geometries[0]).points[1].coordinates.Latitude = 26.32999f;
+        ((GIS_Feature.GIS_LineString)database.geometries[0]).points[1].coordinates.Longitude = 50.10926f;
 
         ((GIS_Feature.GIS_LineString)database.geometries[0]).points[2] = new GIS_Feature.GIS_Point();
         ((GIS_Feature.GIS_LineString)database.geometries[0]).points[2].coordinates = new GIS_Feature.Coordinates();
-        ((GIS_Feature.GIS_LineString)database.geometries[0]).points[2].coordinates.latitude = 26.32986f;
-        ((GIS_Feature.GIS_LineString)database.geometries[0]).points[2].coordinates.longitude = 50.10916f;
+        ((GIS_Feature.GIS_LineString)database.geometries[0]).points[2].coordinates.Latitude = 26.32986f;
+        ((GIS_Feature.GIS_LineString)database.geometries[0]).points[2].coordinates.Longitude = 50.10916f;
 
         ((GIS_Feature.GIS_LineString)database.geometries[0]).points[3] = new GIS_Feature.GIS_Point();
         ((GIS_Feature.GIS_LineString)database.geometries[0]).points[3].coordinates = new GIS_Feature.Coordinates();
-        ((GIS_Feature.GIS_LineString)database.geometries[0]).points[3].coordinates.latitude = 26.32983f;
-        ((GIS_Feature.GIS_LineString)database.geometries[0]).points[3].coordinates.longitude = 50.10917f;
+        ((GIS_Feature.GIS_LineString)database.geometries[0]).points[3].coordinates.Latitude = 26.32983f;
+        ((GIS_Feature.GIS_LineString)database.geometries[0]).points[3].coordinates.Longitude = 50.10917f;
     }
 }

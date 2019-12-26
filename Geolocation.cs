@@ -7,8 +7,10 @@ public class Geolocation : MonoBehaviour
 {
     private UserInterface UI;
 
-    public float longitude, latitude;
+    private float longitude, latitude;
 
+    public float Longitude { get => longitude; set => longitude = value; }
+    public float Latitude { get => latitude; set => latitude = value; }
 
     private void Awake()
     {
@@ -53,7 +55,7 @@ public class Geolocation : MonoBehaviour
         }
         else
         {
-            UI.UpdateGPS((latitude = Input.location.lastData.latitude) + ", " + (longitude = Input.location.lastData.longitude));
+            UI.UpdateGPS((Latitude = Input.location.lastData.latitude) + ", " + (Longitude = Input.location.lastData.longitude));
         }
 
         Input.location.Stop();

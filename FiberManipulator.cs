@@ -45,15 +45,27 @@ public class FiberManipulator : Manipulator
         }
 
         // If gesture is targeting an existing object we are done.
-        if (gesture.TargetObject == null)
+        if (gesture.TargetObject != null)
         {
             return;
-        } else
-        {
-            Manipulator manipulator = GetComponent<Manipulator>();
+        }
 
-            Debug.Log("Targeted Object" + gesture.TargetObject.name);
-            manipulator.Select();
+        // Raycast against the location the player touched to search for planes.
+        TrackableHit hit;
+        TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinPolygon;
+
+        if (Frame.Raycast(
+            gesture.StartPosition.x, gesture.StartPosition.y, raycastFilter, out hit))
+        {
+            // Use hit pose and camera pose to check if hittest is from the
+            // back of the plane, if it is, no need to create the anchor.
+            if ((hit.Trackable is DetectedPlane) &&
+                Vector3.Dot(FirstPersonCamera.transform.position - hit.Pose.position,
+                    hit.Pose.rotation * Vector3.up) < 0)
+            {
+                Debug.Log("Hit at back of the current DetectedPlane");
+            }
+            GetComponent<Manipulator>().Select();
         }
     }
 }

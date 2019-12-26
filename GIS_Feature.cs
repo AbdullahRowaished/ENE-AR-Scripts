@@ -14,7 +14,10 @@ public class GIS_Feature
     /// </summary>
     public class Coordinates
     {
-        public float longitude, latitude;
+        private float longitude, latitude;
+
+        public float Longitude { get => longitude; set => longitude = value; }
+        public float Latitude { get => latitude; set => latitude = value; }
     }
     /// <summary>
     /// Point on map with coordinates and height above ground

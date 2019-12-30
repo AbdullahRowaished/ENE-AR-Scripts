@@ -47,19 +47,20 @@ public class FeatureDraw : MonoBehaviour
                     CreateFiberSegment(midpoint, length, angle, cable, i+1);
                 }
 
-                //if (!hasNearPoints)
-                //{
-                //    if (cable.activeSelf)
-                //    {
-                //        //cable.SetActive(false);
-                //    }
-                //} else
-                //{
-                //    if (!cable.activeSelf)
-                //    {
-                //        //cable.SetActive(true);
-                //    }
-                //}
+                if (!hasNearPoints)
+                {
+                    if (cable.activeSelf)
+                    {
+                        cable.SetActive(false);
+                    }
+                }
+                else
+                {
+                    if (!cable.activeSelf)
+                    {
+                        cable.SetActive(true);
+                    }
+                }
             }
         }
     }
